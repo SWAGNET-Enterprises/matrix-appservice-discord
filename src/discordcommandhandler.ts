@@ -44,37 +44,11 @@ export class DiscordCommandHandler {
         const intent = this.bridge.botIntent;
 
         const actions: ICommandActions = {
-            approve: {
-                description: "Approve a pending bridge request",
-                params: [],
-                permission: "MANAGE_WEBHOOKS",
-                run: async () => {
-                    if (await this.discord.Provisioner.MarkApproved(chan, discordMember, true)) {
-                        return "Thanks for your response! The matrix bridge has been approved.";
-                    } else {
-                        return "Thanks for your response, however" +
-                            " it has arrived after the deadline - sorry!";
-                    }
-                },
-            },
             ban: {
                 description: "Bans a user on the matrix side",
                 params: ["name"],
                 permission: "BAN_MEMBERS",
                 run: this.ModerationActionGenerator(chan, "ban"),
-            },
-            deny: {
-                description: "Deny a pending bridge request",
-                params: [],
-                permission: "MANAGE_WEBHOOKS",
-                run: async () => {
-                    if (await this.discord.Provisioner.MarkApproved(chan, discordMember, false)) {
-                        return "Thanks for your response! The matrix bridge has been declined.";
-                    } else {
-                        return "Thanks for your response, however" +
-                            " it has arrived after the deadline - sorry!";
-                    }
-                },
             },
             kick: {
                 description: "Kicks a user on the matrix side",

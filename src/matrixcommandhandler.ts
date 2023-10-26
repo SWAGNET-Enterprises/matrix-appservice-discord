@@ -90,13 +90,7 @@ export class MatrixCommandHandler {
                         const channel = discordResult.channel as Discord.TextChannel;
 
                         log.info(`Bridging matrix room ${event.room_id} to ${guildId}/${channelId}`);
-                        await this.bridge.botIntent.sendText(
-                            event.room_id,
-                            "I'm asking permission from the guild administrators to make this bridge.",
-                            "m.notice",
-                        );
 
-                        await this.provisioner.AskBridgePermission(channel, event.sender);
                         await this.provisioner.BridgeMatrixRoom(channel, event.room_id);
                         return "I have bridged this room to your channel";
                     } catch (err) {
